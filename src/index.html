@@ -29,6 +29,7 @@
       <section class="books-panel">
         <h1>Your collection</h1>
         <ul class="books-list">
+
         </ul>
       </section>
     </div>
@@ -52,8 +53,8 @@
       </a>
 
       <!-- ratings -->
-      <div class="book__rating">
-        <div class="book__rating__fill">
+      <div class="book__rating" data-id="{{ id }}">
+        <div class="book__rating__fill" style="width: {{ ratingWidth }}%; background: {{ ratingBgc }}">
           {{ rating }}/10
         </div>
       </div>
