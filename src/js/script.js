@@ -138,6 +138,7 @@ class BooksList {
         this.initData();
         this.getElements();
         this.renderBooks();
+        this.initAction()
     }
 
     initData() {
@@ -150,33 +151,36 @@ class BooksList {
                 this.renderBooks();
             });
         });
+    }
 
-        this.booksListElement.addEventListener('dblclick', (event) => {
-            const clickedElement = event.target;
+    initAction() {
+        const bookImages = this.booksListElement.querySelectorAll('.book__image')
+        bookImages.forEach(bookImage => {
+            bookImage.addEventListener('dblclick', (event) => {
+                event.preventDefault()
 
-            if (clickedElement.classList.contains('book__image')) {
-                const bookElement = clickedElement.closest('.book');
-                const bookId = bookElement.getAttribute('data-id');
+                const bookId = bookImage.getAttribute('data-id')
+                const isFavorite = this.favoriteBooks.includes(bookId)
 
-                if (this.favoriteBooks.includes(bookId)) {
+                if (isFavorite) {
                     const index = this.favoriteBooks.indexOf(bookId);
                     if (index > -1) {
                         this.favoriteBooks.splice(index, 1);
                     }
-                    clickedElement.classList.remove('favorite');
+                    bookImage.classList.remove('favorite')
                 } else {
-                    this.favoriteBooks.push(bookId);
-                    clickedElement.classList.add('favorite');
+                    this.favoriteBooks.push(bookId)
+                    bookImage.classList.add('favorite')
                 }
-            }
-        });
+            })
+        })
     }
 
     determineRatingColor(rating) {
         if (rating < 6) {
             return 'linear-gradient(to bottom, #fefcea 0%, #f1da36 100%)';
         } else if (rating <= 8) {
-            return '#b4df5d';
+            return 'linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
         } else if (rating <= 9) {
             return 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
         } else {
